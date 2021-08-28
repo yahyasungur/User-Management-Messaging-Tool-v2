@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-image: url('https://cdn.dribbble.com/users/1034014/screenshots/12910597/post_01_4x.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .container {
+            height: 130px;
+            position: relative;
+            border: 3px #cfacd0;
+        }
+
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .btn {
+            border: 5px solid black;
+            border-radius: 15px;
+            background-color: aliceblue;
+            color: black;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 650px;
+        }
+
+        /* Green --- login */
+        .login {
+            border-color: #04AA6D;
+            color: green;
+        }
+
+        .login:hover {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        /* Blue ---- inbox */
+        .inbox {
+            border-color: #2196F3;
+            color: dodgerblue;
+        }
+
+        .inbox:hover {
+            background: #2196F3;
+            color: white;
+        }
+
+        /* Orange --- outbox */
+        .outbox {
+            border-color: #ff9800;
+            color: orange;
+        }
+
+        .outbox:hover {
+            background: #ff9800;
+            color: white;
+        }
+
+        /* Red  ---- logoff */
+        .logoff {
+            border-color: #f44336;
+            color: red;
+        }
+
+        .logoff:hover {
+            background: #f44336;
+            color: white;
+        }
+
+        /* Gray  ---- admin operations */
+        .admin {
+            border-color: brown;
+            color: brown;
+        }
+
+        .admin:hover {
+            background: brown;
+            color: white;
+        }
+
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .newcontainer {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {-webkit-transform: scale(0)}
+            to {-webkit-transform: scale(1)}
+        }
+
+        @keyframes animatezoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Web based User Management & Messaging Tool</title>
+    <script>
+
+        function adminLogin(adminEmail,adminPassword){
+            var str_admin1 =    '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:adminLoginRequest>'+
+                '<gs:email>';
+            var str_admin2 = '</gs:email>'+
+                '<gs:password>';
+            var str_admin3 = '</gs:password>'+
+                '</gs:adminLoginRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+
+            let str = str_admin1 + adminEmail.toString() + str_admin2 + adminPassword.toString() + str_admin3;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                if ('You have successfully logged in as --ADMIN--.' === tokens[1].slice(1,-2)){
+                    window.location.replace('http://localhost:8080/adminLogin.html');
+                }
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+        function login(){
+            var str_login1 =   '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                        '<soapenv:Header/>'+
+                        '<soapenv:Body>'+
+                        '<gs:loginRequest>'+
+                        '<gs:email>';
+            var str_login2 =    '</gs:email>'+
+                        '<gs:password>';
+            var str_login3 =    '</gs:password>'+
+                        '</gs:loginRequest>'+
+                        '</soapenv:Body>'+
+                        '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            adminLogin(email,password);
+
+            let str = str_login1 + email.toString() + str_login2 + password.toString() + str_login3;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                if ('You have successfully logged in.' === tokens[1].slice(1,-2)){
+                    window.location.replace('http://localhost:8080/login.html');
+                }
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+        }
+
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="center">
+            <p style="font-size: 2px;"></p>
+        </div>
+    </div>
+
+ 
+
+
+    <div class="container">
+        <div class="center">
+            <button class="btn login" onclick="document.getElementById('id01').style.display='block'">Login</button>
+        </div>
+    </div>
+
+    <div id="id01" class="modal">
+
+        <form class="modal-content animate" action="/action_page.php" method="post">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                <img src="https://www.w3schools.com/howto/img_avatar2.png" alt="Avatar" class="avatar">
+            </div>
+
+            <div class="newcontainer">
+                <label for="email"><b>Email</b></label>
+                <input type="text" value="Enter Email" id="email" required>
+
+                <label for="password"><b>Password</b></label>
+                <input type="text" value="Enter Password" id="password" required>
+
+                <button type="button" value="Login" onclick="login();document.getElementById('id01').style.display='none'">Login</button>
+            </div>
+
+            <div class="newcontainer" style="background-color:#f1f1f1">
+                <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+    <p id="serverresponse" style="background-color: #d09bb6; text-align: -webkit-center; font-size: 20px ; margin: 100px"></p>
+    <h1 id="response" style="font-size: 20px;text-align: center"></h1>
+    <p id="p0" style="text-align: center"></p>
+    <p id="p1" style="text-align: center"></p>
+    <p id="p2" style="text-align: center"></p>
+    <p id="p3" style="text-align: center"></p>
+    <p id="p4" style="text-align: center"></p>
+
+</body>
+</html>

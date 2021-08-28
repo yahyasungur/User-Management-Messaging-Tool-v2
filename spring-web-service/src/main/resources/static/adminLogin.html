@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-image: url('https://cdn.dribbble.com/users/1034014/screenshots/12910597/post_01_4x.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .dropdown {
+            float: left;
+            overflow: hidden;
+        }
+
+        .dropdown .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 14px 16px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+        .navbar a:hover, .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            float: none;
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+        .container {
+            height: 250px;
+            position: relative;
+            border: 3px #cfacd0;
+        }
+
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .btn {
+            border: 5px solid black;
+            border-radius: 15px;
+            background-color: aliceblue;
+            color: black;
+            padding: 14px 28px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        /* Green --- login */
+        .login {
+            border-color: #04AA6D;
+            color: green;
+        }
+
+        .login:hover {
+            background-color: #04AA6D;
+            color: white;
+        }
+
+        /* Blue ---- inbox */
+        .inbox {
+            border-color: #2196F3;
+            color: dodgerblue;
+        }
+
+        .inbox:hover {
+            background: #2196F3;
+            color: white;
+        }
+
+        /* Orange --- outbox */
+        .outbox {
+            border-color: #ff9800;
+            color: orange;
+        }
+
+        .outbox:hover {
+            background: #ff9800;
+            color: white;
+        }
+
+        /* Red  ---- logoff */
+        .logoff {
+            border-color: #f44336;
+            color: red;
+        }
+
+        .logoff:hover {
+            background: #f44336;
+            color: white;
+        }
+
+        /* Gray  ---- admin operations */
+        .admin {
+            border-color: brown;
+            color: brown;
+        }
+
+        .admin:hover {
+            background: brown;
+            color: white;
+        }
+
+        /* Full-width input fields */
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        /* Set a style for all buttons */
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        /* Extra styles for the cancel button */
+        .cancelbtn {
+            width: auto;
+            padding: 10px 18px;
+            background-color: #f44336;
+        }
+
+        /* Center the image and position the close button */
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        img.avatar {
+            width: 40%;
+            border-radius: 50%;
+        }
+
+        .newcontainer {
+            padding: 16px;
+        }
+
+        span.psw {
+            float: right;
+            padding-top: 16px;
+        }
+
+        /* The Modal (background) */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            padding-top: 60px;
+        }
+
+        /* Modal Content/Box */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+        }
+
+        /* The Close Button (x) */
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        /* Add Zoom Animation */
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {-webkit-transform: scale(0)}
+            to {-webkit-transform: scale(1)}
+        }
+
+        @keyframes animatezoom {
+            from {transform: scale(0)}
+            to {transform: scale(1)}
+        }
+
+        /* Change styles for span and cancel button on extra small screens */
+        @media screen and (max-width: 300px) {
+            span.psw {
+                display: block;
+                float: none;
+            }
+            .cancelbtn {
+                width: 100%;
+            }
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Web based User Management & Messaging Tool</title>
+    <script>
+
+        var static = false;
+
+        function message(){
+            var str_msg1 =  '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:messageRequest>'+
+                '<gs:message>'+
+                '<gs:from>';
+
+            var str_msg2 =  '</gs:from>'+
+                '<gs:to>';
+
+            var str_msg3 =  '</gs:to>'+
+                '<gs:body>';
+
+            var str_msg4 =   '</gs:body>'+
+                '</gs:message>'+
+                '</gs:messageRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const to = document.getElementById("to").value;
+            const body = document.getElementById("body").value;
+
+            let str = str_msg1 + "?" + str_msg2 + to.toString() + str_msg3 + body.toString() + str_msg4;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+
+
+        function login(){
+            var str_login1 =   '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:loginRequest>'+
+                '<gs:email>';
+            var str_login2 =    '</gs:email>'+
+                '<gs:password>';
+            var str_login3 =    '</gs:password>'+
+                '</gs:loginRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            let str = str_login1 + email.toString() + str_login2 + password.toString() + str_login3;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+                if ('You have successfully logged in.' === tokens[1].slice(1,-2)){
+                    window.location.replace('http://localhost:8080/login.html');
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+
+        function delete_user(){
+            var str_login1 =   '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:deleteRequest>'+
+                '<gs:email>';
+            var str_login2 =    '</gs:email>'+
+                '</gs:deleteRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const deletedEmail = document.getElementById("deletedEmail").value;
+
+            let str = str_login1 + deletedEmail.toString() + str_login2;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+        function adminLogin(){
+            var str_admin1 =    '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:adminLoginRequest>'+
+                '<gs:email>';
+            var str_admin2 = '</gs:email>'+
+                '<gs:password>';
+            var str_admin3 = '</gs:password>'+
+                '</gs:adminLoginRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const adminEmail = document.getElementById("adminEmail").value;
+            const adminPassword = document.getElementById("adminPassword").value;
+
+            let str = str_admin1 + adminEmail.toString() + str_admin2 + adminPassword.toString() + str_admin3;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+        function create(){
+            var str_create1 =    '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:createRequest>'+
+                '<gs:user>'+
+                '<gs:name>';
+            var str_create2 = '</gs:name>'+
+                '<gs:surname>';
+            var str_create3 = '</gs:surname>'+
+                '<gs:birthdate>';
+            var str_create4 = '</gs:birthdate>'+
+                '<gs:gender>';
+            var str_create5 = '</gs:gender>'+
+                '<gs:email>';
+            var str_create6 = '</gs:email>'+
+                '<gs:password>';
+            var str_create7 ='</gs:password>'+
+                '</gs:user>'+
+                '</gs:createRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const createName = document.getElementById("createName").value;
+            const createSurname = document.getElementById("createSurname").value;
+            const createBirthdate = document.getElementById("createBirthdate").value;
+            const createGender = document.getElementById("createGender").value;
+            const createEmail = document.getElementById("createEmail").value;
+            const createPassword = document.getElementById("createPassword").value;
+
+            let str = str_create1 + createName.toString() + str_create2 + createSurname.toString() + str_create3 + createBirthdate.toString() + str_create4 +
+                createGender.toString() + str_create5 + createEmail.toString() + str_create6 + createPassword.toString() + str_create7;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+        function update(){
+            var str_create1 =    '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:updateRequest>'+
+                '<gs:emailOfUpdated>';
+            var str_update1_5 = '</gs:emailOfUpdated>'+
+                '<gs:user>'+
+                '<gs:name>';
+            var str_create2 = '</gs:name>'+
+                '<gs:surname>';
+            var str_create3 = '</gs:surname>'+
+                '<gs:birthdate>';
+            var str_create4 = '</gs:birthdate>'+
+                '<gs:gender>';
+            var str_create5 = '</gs:gender>'+
+                '<gs:email>';
+            var str_create6 = '</gs:email>'+
+                '<gs:password>';
+            var str_create7 ='</gs:password>'+
+                '</gs:user>'+
+                '</gs:updateRequest>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+            const updatedEmail = document.getElementById("updatedEmail").value;
+            const updateName = document.getElementById("updateName").value;
+            const updateSurname = document.getElementById("updateSurname").value;
+            const updateBirthdate = document.getElementById("updateBirthdate").value;
+            const updateGender = document.getElementById("updateGender").value;
+            const updateEmail = document.getElementById("updateEmail").value;
+            const updatePassword = document.getElementById("updatePassword").value;
+
+            let str = str_create1 + updatedEmail.toString() + str_update1_5 + updateName.toString() + str_create2 + updateSurname.toString() + str_create3 +
+                updateBirthdate.toString() + str_create4 + updateGender.toString() + str_create5 + updateEmail.toString() + str_create6 +
+                updatePassword.toString()+ str_create7;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                document.getElementById("response").textContent = tokens[1].slice(1,-2);
+                for (let i = 0; i < 5;i++){
+                    document.getElementById("p"+i.toString()).textContent = "";
+                }
+            }
+
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+
+        }
+
+        function inbox(){
+            var str_inbox = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:inboxRequest/>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+
+            let str = str_inbox;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                const string = tokens[1].slice(1,-2);
+                let tokens2 = [];
+                tokens2 = string.split("|");
+                document.getElementById("response").textContent = ".:INBOX:.";
+                if (tokens.length > 2){
+                    for (let i = 0; i < tokens2.length && i < 5; i++){
+                        document.getElementById("p"+i.toString()).textContent = tokens2[i];
+                    }
+                    if (tokens2.length < 5){
+                        for (let i = tokens2.length; i < 5;i++){
+                            document.getElementById("p"+i.toString()).textContent = "";
+                        }
+                    }
+                }else{
+                    for (let i = 0; i < 5;i++){
+                        document.getElementById("p"+i.toString()).textContent = "";
+                    }
+                }
+            }
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+        }
+
+        function outbox(){
+            var str_inbox = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:outboxRequest/>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+
+            let str = str_inbox;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                const string = tokens[1].slice(1,-2);
+                let tokens2 = [];
+                tokens2 = string.split("|");
+                document.getElementById("response").textContent = ".:OUTBOX:.";
+                if (tokens.length > 2){
+                    for (let i = 0; i < tokens2.length && i < 5; i++){
+                        document.getElementById("p"+i.toString()).textContent = tokens2[i];
+                    }
+                    if (tokens2.length < 5){
+                        for (let i = tokens2.length; i < 5;i++){
+                            document.getElementById("p"+i.toString()).textContent = "";
+                        }
+                    }
+                }else{
+                    for (let i = 0; i < 5;i++){
+                        document.getElementById("p"+i.toString()).textContent = "";
+                    }
+                }
+
+            }
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+        }
+
+        function read(){
+            var str_inbox = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:readRequest/>'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+
+            let str = str_inbox;
+            console.log(str);
+
+            xhr.onload = function (){
+                const str = xhr.responseText;
+                let tokens = [];
+                tokens = str.split("ns2:response");
+                document.getElementById("serverresponse").textContent = "...SERVER RESPONSE...";
+                const string = tokens[1].slice(1,-2);
+                let tokens2 = [];
+                tokens2 = string.split("|");
+                document.getElementById("response").textContent = ".:USERS:.";
+                for (let i = 0; i < tokens2.length && i < 5; i++){
+                    document.getElementById("p"+i.toString()).textContent = tokens2[i];
+                }
+                if (tokens2.length < 5){
+                    for (let i = tokens2.length; i < 5;i++){
+                        document.getElementById("p"+i.toString()).textContent = "";
+                    }
+                }
+            }
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+        }
+
+        function logoff(){
+            var str_inbox = '<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-spring-web-service">'+
+                '<soapenv:Header/>'+
+                '<soapenv:Body>'+
+                '<gs:logoffRequest/>\n'+
+                '</soapenv:Body>'+
+                '</soapenv:Envelope>';
+
+            function createCORSRequest(method, url) {
+                var xhr = new XMLHttpRequest();
+                if ("withCredentials" in xhr) {
+                    xhr.open(method, url, false)
+                } else if (typeof XDomainRequest != "undefined") {
+                    alert
+                    xhr = new XDomainRequest();
+                    xhr.open(method,url);
+                } else{
+                    console.log("CORS not supported");
+                    alert("CORS not supported");
+                    xhr = null;
+                }
+                return xhr;
+            }
+            var xhr = createCORSRequest("POST","http://localhost:8080/ws/UMMT.wsdl");
+            if (!xhr){
+                console.log("XHR issue");
+                return;
+            }
+
+            let str = str_inbox;
+            console.log(str);
+
+            xhr.onload = function (){
+                window.location.replace("http://localhost:8080/index.html");
+            }
+            xhr.setRequestHeader("Content-Type","text/xml");
+            xhr.send(str);
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="center">
+        <p style="font-size: 25px;"></p>
+    </div>
+</div>
+
+
+<div class="container">
+    <div class="center">
+        <button class="btn admin" onclick="document.getElementById('id02').style.display='block'">Send Message</button>
+        <button class="btn inbox" onclick="inbox()">Inbox</button>
+        <button class="btn outbox" onclick="outbox()">Outbox</button>
+        <button class="btn logoff" onclick="logoff()">Logoff</button>
+        <div class="dropdown">
+            <button class="dropbtn btn" style="border: 5px solid gray; color: black; font-size: large; background-color: white; border-radius: 15px;">Admin Operations
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content">
+                <a onclick="document.getElementById('id04').style.display='block'">Create</a>
+                <a onclick="read()">Read</a>
+                <a onclick="document.getElementById('id05').style.display='block'">Update</a>
+                <a onclick="document.getElementById('id06').style.display='block'">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="id02" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id02').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="https://aux2.iconspalace.com/uploads/3712361231136592300.png" alt="Avatar" class="avatar" style="width:300px;height:300px;">
+        </div>
+
+        <div class="newcontainer">
+            <label for="to"><b>To</b></label>
+            <input type="text" value="Enter the e-mail address to which the message will be sent." id="to" required>
+
+            <label for="body"><b>Message</b></label>
+            <input type="text" value="Write your message..." id="body" style="height:150px" required>
+
+            <button type="button" value="Send" onclick="message();document.getElementById('id02').style.display='none'">Send</button>
+        </div>
+
+        <div class="newcontainer" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div id="id04" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id04').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRfMvg1qfwBoF9gCPGRulJPps1FDPXGCeVxn-5tADliXIuYleG7DidLGFloUckDhnIfGs&usqp=CAU" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="newcontainer">
+            <label for="createName"><b>Name</b></label>
+            <input type="text" value="..." id="createName" required>
+
+            <label for="createSurname"><b>Surname</b></label>
+            <input type="text" value="..." id="createSurname" required>
+
+            <label for="createBirthdate"><b>Birthdate</b></label>
+            <input type="text" value="..." id="createBirthdate" required>
+
+            <label for="createGender"><b>Gender</b></label>
+            <input type="text" value="..." id="createGender" required>
+
+            <label for="createEmail"><b>E-mail</b></label>
+            <input type="text" value="..." id="createEmail" required>
+
+            <label for="createPassword"><b>Password</b></label>
+            <input type="text" value="..." id="createPassword" required>
+
+            <button type="button" value="Create" onclick="create();document.getElementById('id04').style.display='none'">Create User</button>
+        </div>
+
+        <div class="newcontainer" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id04').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div id="id05" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id05').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="https://cdn2.iconfinder.com/data/icons/user-management/512/update-512.png" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="newcontainer">
+            <label for="updatedEmail"><b>Email of the user to be updated</b></label>
+            <input type="text" value="..." id="updatedEmail" required>
+
+            <label for="updateName"><b>New Name</b></label>
+            <input type="text" value="..." id="updateName" required>
+
+            <label for="updateSurname"><b>New Surname</b></label>
+            <input type="text" value="..." id="updateSurname" required>
+
+            <label for="updateBirthdate"><b>New Birthdate</b></label>
+            <input type="text" value="..." id="updateBirthdate" required>
+
+            <label for="updateGender"><b>New Gender</b></label>
+            <input type="text" value="..." id="updateGender" required>
+
+            <label for="updateEmail"><b>New E-mail</b></label>
+            <input type="text" value="..." id="updateEmail" required>
+
+            <label for="updatePassword"><b>New Password</b></label>
+            <input type="text" value="..." id="updatePassword" required>
+
+            <button type="button" value="Create" onclick="update();document.getElementById('id05').style.display='none'">Update User</button>
+        </div>
+
+        <div class="newcontainer" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id05').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<div id="id06" class="modal">
+
+    <form class="modal-content animate" action="/action_page.php" method="post">
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('id06').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcb4erC0ybjNHAbX-WgRx5S8txBKpY6h-4fGBz-pAXyuRfELHSqqKBYZBDm43f3_0zNy4&usqp=CAU" alt="Avatar" class="avatar">
+        </div>
+
+        <div class="newcontainer">
+            <label for="deletedEmail"><b>Email of the user to be deleted</b></label>
+            <input type="text" value="..." id="deletedEmail" required>
+
+            <button type="button" value="Login" onclick="delete_user();document.getElementById('id06').style.display='none'">Delete User</button>
+        </div>
+
+        <div class="newcontainer" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('id06').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Get the modal
+    var modal2 = document.getElementById('id02');
+    var modal4 = document.getElementById('id04');
+    var modal5 = document.getElementById('id05');
+    var modal6 = document.getElementById('id06');
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal2) {
+            modal2.style.display = "none";
+        }
+        if (event.target == modal4) {
+            modal4.style.display = "none";
+        }
+        if (event.target == modal5) {
+            modal5.style.display = "none";
+        }
+        if (event.target == modal6) {
+            modal6.style.display = "none";
+        }
+    }
+</script>
+
+<p id="serverresponse" style="background-color: #d09bb6; text-align: -webkit-center; font-size: 20px ; margin: 100px"></p>
+<h1 id="response" style="font-size: 20px;text-align: center"></h1>
+<p id="p0" style="text-align: center"></p>
+<p id="p1" style="text-align: center"></p>
+<p id="p2" style="text-align: center"></p>
+<p id="p3" style="text-align: center"></p>
+<p id="p4" style="text-align: center"></p>
+
+</body>
+</html>
